@@ -13,17 +13,17 @@ There were mainly three models mentioned
 - SI 
 - SIS
 - SIR
-- SIRS
+- SIRS\
 At every time point, infected nodes have a chance to infect their susceptible neighbors.
 2. Independent cascade model:\
 Main difference is that it only has one chance to activate inactive neighboring nodes. 
-3. Linear thresold model:\
+3. Linear threshold model:\
 At each time-step inactive nodes are weighted based on aggregation of incoming neighbors. The node is activated upon reaching a threshold value.
 
 
 #### Centrality measures:
 1\. Degree centrality:\
-Also known as the indegree of a node.\
+Also known as the indegree of a node.
 
 2\. Closeness centrality:\
 Defined as the average shortest distance between a node and other nodes. This was introduced in a classic paper by Linton Freeman [^1] and also referred to as the "independence" of a point. Linton mentions that a previous version of centrality measured by Sabidussi (1966) is actually inversely related to centrality. 
@@ -34,11 +34,11 @@ Sabidussi's measure of the decentrality of a point $$p_{k}$$ is:
 > $$C_{c}(p_{k})^{-1} = \sum_{i=1}^{n}d(p_{i}, p_{k})$$
 
 3\. Betweenness centrality:\
-Nodes that appear in the shortest paths. The cited papers are fairly recent (2002, 2011, 2014)\
+Nodes that appear in the shortest paths. The cited papers are fairly recent (2002, 2011, 2014)
 
 4\. Jordan centrality:\
 Also known as the center of a graph. This is related to the idea of closeness centrality using the Sabidussi measure. Node with smallest max distance to contaminated and recovered nodes. The number of Jordan centers is equivalent to the radius of a graph. [^2]
-<img src="{{site.url}}/images/2022-07-12-source-rumor-detection/graph_centers.svg" style="display: block; margin: 5% 0% 5% 0%;"/>
+<img src="{{site.baseurl}}/images/2022-07-12-source-rumor-detection/graph_centers.svg" style="display: block; margin: 5% 0% 5% 0%;"/>
 
 5\. Eigenvector centrality:\
 Sum of degree centrality of neighbor nodes. It's worth remembering that since the adjacency matrix of an undirected simple graph is symmetric, it has a complete set of real eigenvalues and an orthogonal eigenvector basis. We take the largest eigenvalue here which is bounded above by the maximum degree. [^3]
@@ -70,7 +70,7 @@ Measures the inequality of message distribution within the network.
 1\. Network partitioning:
 - Phase 1: Voronoi partitioning method
 - Phase 2: Adjust two source estimator between adjacent partitions.
-<img src="{{site.url}}/images/2022-07-12-source-rumor-detection/k-centers.png" style="display: block; margin: 5% 0% 5% 0%;"/>
+<img src="{{site.baseurl}}/images/2022-07-12-source-rumor-detection/k-centers.png" style="display: block; margin: 5% 0% 5% 0%;"/>
 
 2\. Ranking based:\
 This introduces an interesting idea of reverse flow. [^5] In the Independent cascade model, active nodes have probability $$p$$ to turn adjacent nodes into active nodes as well. Hence, a forward flow has probability $$1-p$$ to stop at a current node. If we run the flow backwards from every node in multiple simulations, we can find nodes that are hit frequently by reverse flow, which are more likely to be attackers.
