@@ -27,7 +27,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 
   In my free time, I am helping to build a community fridge map application for providing low-income immigrants in NYC access to free food.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "josephmaa.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https:josephmaa.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: JosephMaa2
 github_username:  josephmaa
 
@@ -38,6 +38,15 @@ mathjax: true
 plugins:
   - jekyll-feed
   - jekyll-include-cache
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "posts" # previously `post` in Jekyll 2.2.
+    values:
+      layout: "single"
+      categories: research
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
