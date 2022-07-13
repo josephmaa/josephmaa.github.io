@@ -33,6 +33,8 @@ github_username:  josephmaa
 
 # Build settings
 remote_theme: "mmistakes/minimal-mistakes"
+markdown: kramdown
+mathjax: true
 plugins:
   - jekyll-feed
   - jekyll-include-cache

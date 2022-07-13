@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title:  "Rumor Source Detection"
 date:   2022-07-12 23:40:13 -0700
 excerpt: "Comparing the pros and cons of different models evaluated by various centrality measures and evaluation metrics." 
@@ -18,7 +18,10 @@ Centrality measures:
 Evaluation metrics:
 1. Execution time
 2. F-measure and precision? (How are these measured based on accuracy of estimated sources?)
-a. 
+
+a. Accuracy:
+$$\text{F measure}=\frac{2*\text{precision}*\text{recall}}{\text{precision}+\text{recall}}$$
+
 3. Distance error
 4. Rank 
 
