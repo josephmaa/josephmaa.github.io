@@ -1,6 +1,6 @@
 ---
 layout: posts
-title:  "Source detection of rumors in social network"
+title:  "Source detection of rumors in social networks"
 excerpt: "Comparing the pros and cons of different models evaluated by various centrality measures and evaluation metrics." 
 ---
 I started reading a review recently about source detection of rumors in a social network to start to get a better idea of a project that I'm planning on working on in the near future. 
