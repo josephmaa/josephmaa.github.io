@@ -38,6 +38,7 @@ mathjax: true
 plugins:
   - jekyll-feed
   - jekyll-include-cache
+  - jekyll-seo-tag
 
 defaults:
   -
