@@ -22,7 +22,7 @@ This paper re-introduced the idea of convolutions on graph. They use the standar
 
 $$\Theta_{*G}x=\Theta(L)x=\Theta(U\Lambda U^{T})x=U\Theta(\Lambda)U^{T}x$$
 
-where L is the normalized graph Laplacian is defined as $$L = I_{n} - D^{-\frac{1}{2}} W D^{-\frac{1}{2}} = U\Lambda U_{T} \in \mathbb{R}^{n x n}$$. The Laplacian is a symmetric matrix, so it is guaranted to be diagonalizable and $$\Lambda \in \mathbb{R}^{n x n}$$ is the diagnoal matrix of eigenvalues of L. The paper by Kipf and Welling introduces this operation in 2016. [^1]
+where L is the normalized graph Laplacian is defined as $$L = I_{n} - D^{-\frac{1}{2}} W D^{-\frac{1}{2}} = U\Lambda U_{T} \in \mathbb{R}^{n x n}$$. The Laplacian is a symmetric matrix, so it is guaranted to be diagonalizable and $$\Lambda \in \mathbb{R}^{n x n}$$ is the diagonal matrix of eigenvalues of L. The paper by Kipf and Welling introduces this operation in 2016. [^1]
 
 #### Architecture:
 
@@ -54,9 +54,38 @@ The authors claim that due to the graph Fourier basis, convolutions through matr
 
 ##### 1. Chebyshev Polynomial Approximations:
 
+The Chebyshev Polynomial Approximations are not only a way to estimate a function's values over a specific range, but the calculated coefficients give you a great way to get a sense of the maximum range of the error. I found an awesome article by Jason Sachs[^2] who works in embedded systems and the improvement that Chebyshev approximations have over Taylor polynomial approximations, look-up tables, and look-up tables with linear approximation for use cases in approximating values within a specific range. 
 
+<img src="{{site.baseurl}}/images/2022-07-13-detecting-traffic-flow/chebyshev.png" style="display: block; margin: 5% 0% 5% 0%;">
+
+Instead of thinking polynomials as linear combinations of $$1, x, x^{2}, x^{3}$$, we can think of them as linear combinations of Chebyshev polynomials $$T_{n}(x) = cos(n cos^{-1}(x))$$. Using this mapping, we can generally take a function over a range and map it to the interval $$u \in [-1, 1]$$. There is a cool graphical picture of what this looks like that has a Fourier-esque taste to it.
+
+<img src="{{site.baseurl}}/images/2022-07-13-detecting-traffic-flow/chebyshev_mapping.png" style="display: block; margin: 5% 0% 5% 0%;">
+
+The authors claim that a paper by Defferrard et al. 2016[^3] can be used to filter equation $$(1)$$ above to $$O(K\lvert E \rvert)$$ where $$K$$ is the support size and $$E$$ are the edges in the filter. The authors argue that the decomposition from equation $$(1)$$ can be by rescaling the matrix of eigenvalues $$\hat{\Lambda} = \frac{2\Lambda}{\lambda_{max}} - I_{n}$$. Using this re-scaling, we can re-write equation $$(1)$$ as:
+
+$$\Theta_{*G}x = \Theta(L)x \approx \sum_{k=0}^{K-1}\theta_{k}T_{k}(\widetilde{L})x$$
+
+where $$T_{k}(\widetilde{L}) \in \mathbb{R}^{n \times n}$$ is the Chebyshev polynomial of order k that has been scaled/approximated.
 
 ##### 2. 1st order Approximations
 
+The authors further claim that
+
+> Due to the scaling and nor- malization in neural networks, we can further assume that $$\lambda_{max} \approx 2$$. Thus, equation $$(2)$$ can further be simplified to:
+
+$$\begin{aligned}\Theta_{*G}x &\approx \theta_{0}x + \theta_{1}(\frac{2}{\lambda_{max}}L - I_{n})x \\ &\approx \theta_{0}x - \theta_{1}(D^{-\frac{1}{2}}WD^{-\frac{1}{2}})x \end{aligned}$$
+
+where $$\theta_{0}$$ and $$\theta_{1}$$ are two shared kernel parameters, which they then say you can replace with a single parameter $$\theta$$ by letting $$\theta = \theta_{0} = -\theta_{1}$$ and by renormalizing $$W$$ and $$D$$ such that $$\widetilde{W} = W + I_{n}$$ and $$\widetilde{D_{ii}} = \sum_{j}\widetilde{W}_{ij}$$. Then the graph convolution can be further simplified to:
+
+$$\begin{aligned} \Theta_{*G}x &= \theta(I_{n} + D^{-\frac{1}{2}}WD^{-\frac{1}{2}}) \\ 
+&= \theta(\widetilde{D}^{-\frac{1}{2}}\widetilde{W}\widetilde{D}^{-\frac{1}{2}}) \end{aligned}$$
+
+#### Conclusions:
+
+I am looking forward to reading the Kipf and Welling 2016 paper as the architecture for any graph convolutional neural network will probably use the formulation that they proposed or a closely related variant. There's also an interesting book called <ins>Numerical Recipes</ins> [^9] that I would be interested in checking out when I have some more free time to look at some more ways to apply number theory to speeding up calculations. The book is also available for free online as a PDF, so even more reason to check it out and support the author. The first chapter hit a ton of topics that I was introduced to in linear algebra including Gauss-Jordan Elimination, LU Decomposition, SVD, QR Decomposition, and some topics that I have personally never heard about it which is kind of exciting. (There is a section called "Is Matrix Inversion an $$N^{3}$$ Process" which I find pretty cool.)
+
 [^1]: https://tkipf.github.io/graph-convolutional-networks/
 [^2]: https://github.com/tkipf/gcn/blob/master/gcn/models.py
+[^3]: https://proceedings.neurips.cc/paper/2016/file/04df4d434d481c5bb723be1b6df1ee65-Paper.pdf
+[^9]: http://numerical.recipes/
