@@ -22,7 +22,7 @@ For anybody working on a project of any complexity, it is immediately clear why 
 
 #### Prerequisites:
 
-1. Add the bin folder in Vivado to local environment variables\
+1. Add the bin folder in Vivado to local environment variables
 
 In order to run the `vivado -mode tcl` command in git-bash, I have to add the Vivado bin folder to the path. You can do this by going to environment variables and adding the bin folder for Vivado to the environment path. For us, the folder was found at `C:\Xilinx\Vivado\<version number>\bin`. `vivado -mode tcl` allows us to to run TCL scripts.
 
@@ -78,7 +78,7 @@ Run the command `source <project name>.tcl`. If everything runs successfully, it
 
 <img src="{{site.baseurl}}/images/2013-12-06-local-version-control-in-vivado/9_directory structure.png" style="display: block; margin: 5% 0% 5% 0%;">
 
-Comment: I personally use git to clean my repository between runs. If you have used the .gitignore file that I provided, you can use the command `git clean -dfxn` to confirm the files to clean, then `git clean -dfx` in order to remove the journal files and other junk that Vivado creates. This command also cleans up cached IP block implementations though, so be careful.
+Comment: I personally use git to clean my repository between runs. If you have used the .gitignore file that I provided[^1], you can use the command `git clean -dfxn` to confirm the files to clean, then `git clean -dfx` in order to remove the journal files and other junk that Vivado creates. This command also cleans up cached IP block implementations though, so be careful.
 
 Here I delete two IP blocks, re-check the .bd files into version control, then re-generate the project.
 
@@ -106,7 +106,7 @@ This file is like an xml file and also includes a lot of hard-coded absolute pat
 
 1\. Dockerizing
 
-George Hotz dockerized ISE on stream [^1] and it would be useful to do something similar for Vivado. However, with the node-locked license, it may be difficult to recreate. Check out this post on the Xilinx forums for someone who did something similar. [^2]
+George Hotz dockerized ISE on stream [^2] and it would be useful to do something similar for Vivado. However, with the node-locked license, it may be difficult to recreate. Check out this post on the Xilinx forums for someone who did something similar. [^3]
 
 2\. Running synthesis and implementation + Vitis IDE workflow in TCL scripts.
 
@@ -120,5 +120,6 @@ I haven't tested version controlling remote sources in Vivado. If anyone gives i
 
 Footnotes:
 
-[^1]: https://www.youtube.com/watch?v=bN8CSGCsM1w
-[^2]: https://www.reddit.com/r/FPGA/comments/bk8b3n/dockerizing_xilinx_tools/
+[^1]: https://gist.github.com/josephmaa/51006e1053a2758005078a5ff23742d0
+[^2]: https://www.youtube.com/watch?v=bN8CSGCsM1w
+[^3]: https://www.reddit.com/r/FPGA/comments/bk8b3n/dockerizing_xilinx_tools/
