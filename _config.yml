@@ -8,7 +8,7 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 #
-# If you need help with YAML syntax, here are some quick references for you: 
+# If you need help with YAML syntax, here are some quick references for you:
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 #
@@ -29,7 +29,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https:josephmaa.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: JosephMaa2
-github_username:  josephmaa
+github_username: josephmaa
 
 # Build settings
 remote_theme: "mmistakes/minimal-mistakes"
@@ -41,8 +41,7 @@ plugins:
   - jekyll-seo-tag
 
 defaults:
-  -
-    scope:
+  - scope:
       path: "" # an empty string here means all files in the project
       type: "posts" # previously `post` in Jekyll 2.2.
     values:
